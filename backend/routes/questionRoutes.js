@@ -1,9 +1,19 @@
 const express = require("express");
-const router = express.Router();
-const { getQuestions } = require("../controllers/questionController");
-const authMiddleware = require("../middleware/authMiddleware");
+const {
+  addQuestion,
+  getQuestions,
+  deleteQuestion,
+  updateQuestion,
+} = require("../controllers/questionController");
+const { protect, admin } = require("../middlewares/authMiddleware");
 
-// Get all questions for a course
-router.get("/:courseId", authMiddleware, getQuestions);
+const router = express.Router();
+
+router.route("/").post(protect, admin, addQuestion);
+router.route("/:courseId").get(protect, getQuestions);
+router
+  .route("/:id")
+  .delete(protect, admin, deleteQuestion)
+  .put(protect, admin, updateQuestion);
 
 module.exports = router;

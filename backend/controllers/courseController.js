@@ -1,61 +1,31 @@
 const Course = require("../models/Course");
-const Question = require("../models/Question");
+const User = require("../models/User");
 
-// Create a new course
-exports.createCourse = async (req, res) => {
-  const { title, description } = req.body;
-
+// Fetch all courses (admin only)
+const getAllCourses = async (req, res) => {
   try {
-    const newCourse = new Course({
-      title,
-      description,
-    });
-
-    const course = await newCourse.save();
-    res.json(course);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
-  }
-};
-
-// Get all courses
-exports.getCourses = async (req, res) => {
-  try {
-    const courses = await Course.find().populate("questions");
+    const courses = await Course.find({});
     res.json(courses);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
 };
 
-// Add a question to a course
-exports.addQuestion = async (req, res) => {
-  const { questionText, options, correctOption, courseId } = req.body;
-
+// Fetch enrolled courses (non-admin users)
+const getEnrolledCourses = async (req, res) => {
   try {
-    const course = await Course.findById(courseId);
-
-    if (!course) {
-      return res.status(404).json({ msg: "Course not found" });
+    const user = await User.findById(req.user._id).populate("courses");
+    if (user) {
+      res.json(user.courses);
+    } else {
+      res.status(404).json({ message: "User not found" });
     }
-
-    const newQuestion = new Question({
-      questionText,
-      options,
-      correctOption,
-      course: courseId,
-    });
-
-    const question = await newQuestion.save();
-
-    course.questions.push(question.id);
-    await course.save();
-
-    res.json(question);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server error");
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
   }
+};
+
+module.exports = {
+  getAllCourses,
+  getEnrolledCourses,
 };

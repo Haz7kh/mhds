@@ -1,29 +1,13 @@
 const express = require("express");
-const router = express.Router();
 const {
-  createCourse,
-  getCourses,
-  addQuestion,
+  getAllCourses,
+  getEnrolledCourses,
 } = require("../controllers/courseController");
-const authMiddleware = require("../middleware/authMiddleware");
-const {
-  validateCourseCreation,
-  handleValidation,
-} = require("../utils/validators");
+const { protect, admin } = require("../middlewares/authMiddleware");
 
-// Create a new course
-router.post(
-  "/",
-  authMiddleware,
-  validateCourseCreation,
-  handleValidation,
-  createCourse
-);
+const router = express.Router();
 
-// Get all courses
-router.get("/", getCourses);
-
-// Add a question to a course
-router.post("/question", authMiddleware, addQuestion);
+router.route("/").get(protect, admin, getAllCourses); // Admin route to fetch all courses
+router.route("/enrolled").get(protect, getEnrolledCourses); // User route to fetch enrolled courses
 
 module.exports = router;

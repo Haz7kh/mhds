@@ -1,28 +1,21 @@
 const mongoose = require("mongoose");
 
 const QuestionSchema = new mongoose.Schema({
-  questionText: {
-    type: String,
+  course: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Course",
     required: true,
   },
-  options: {
+  questionText: { type: String, required: true },
+  answers: {
     a: { type: String, required: true },
     b: { type: String, required: true },
     c: { type: String, required: true },
     d: { type: String, required: true },
   },
-  correctOption: {
-    type: String,
-    required: true,
-  },
-  course: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Course",
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  correctAnswer: { type: String, required: true },
+  imageUrl: { type: String },
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("Question", QuestionSchema);

@@ -1,19 +1,25 @@
 const express = require("express");
-const router = express.Router();
 const {
   getUsers,
   getUserById,
+  deleteUser,
   updateUser,
+  enrollUserInCourse,
+  createUser,
 } = require("../controllers/userController");
-const authMiddleware = require("../middleware/authMiddleware");
+const { protect, admin } = require("../middlewares/authMiddleware");
 
-// Get all users
-router.get("/", authMiddleware, getUsers);
+const router = express.Router();
 
-// Get a single user by ID
-router.get("/:id", authMiddleware, getUserById);
-
-// Update a user
-router.put("/:id", authMiddleware, updateUser);
+router
+  .route("/")
+  .get(protect, admin, getUsers)
+  .post(protect, admin, createUser);
+router
+  .route("/:id")
+  .get(protect, admin, getUserById)
+  .delete(protect, admin, deleteUser)
+  .put(protect, admin, updateUser);
+router.route("/:id/enroll").post(protect, admin, enrollUserInCourse);
 
 module.exports = router;

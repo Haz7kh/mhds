@@ -1,33 +1,43 @@
-// server.js
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-const errorHandler = require("./middleware/errorHandler");
+const path = require("path");
 const cors = require("cors");
 
-dotenv.config();
+dotenv.config(); // Load env vars
+
+const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
+const courseRoutes = require("./routes/courseRoutes");
+const questionRoutes = require("./routes/questionRoutes");
+const enrollmentRoutes = require("./routes/enrollmentRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
+
+connectDB();
 
 const app = express();
 
-// Connect Database
-connectDB();
+// Enable CORS
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Allow your frontend application to access the backend
+  })
+);
 
-// Init Middleware
-app.use(express.json({ extended: false }));
+app.use(express.json());
 
-app.use(cors());
+// Static folder for uploads
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
-app.get("/", (req, res) => res.send("API Running"));
-
-// Define Routes
-app.use("/api/auth", require("./routes/authRoutes"));
-app.use("/api/courses", require("./routes/courseRoutes"));
-app.use("/api/questions", require("./routes/questionRoutes"));
-app.use("/api/users", require("./routes/userRoutes"));
-
-// Error Handling Middleware
-app.use(errorHandler);
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/questions", questionRoutes);
+app.use("/api/enrollments", enrollmentRoutes);
+app.use("/api/upload", uploadRoutes); // Use upload routes
 
 const PORT = process.env.PORT || 5002;
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+const server = app.listen(PORT, () =>
+  console.log(`Server running on port ${PORT}`)
+);

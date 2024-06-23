@@ -1,62 +1,41 @@
-// src/App.jsx
-import React, { useContext } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Login from "./pages/Login";
-import UserProfile from "./pages/UserProfile";
-import AdminDashboard from "./pages/AdminDashboard";
-import AuthProvider, { AuthContext } from "./context/AuthContext";
-import "./styles/global.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Users from "./components/Users";
+import Courses from "./components/Courses";
+import Questions from "./components/Questions";
+import AdminDashboard from "./components/AdminDashboard";
+import UserProfile from "./components/UserProfile";
+import AddUser from "./components/AddUser";
+import AddCourse from "./components/AddCourse";
+import AddQuestion from "./components/AddQuestion";
+import EnrollUser from "./components/EnrollUser";
+import EditUser from "./components/EditUser";
+import NavBar from "./components/NavBar";
+import "./App.css";
 
-const App = () => (
-  <AuthProvider>
+function App() {
+  return (
     <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <UserProfile />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-      <Footer />
+      <div className="App">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/questions/:courseId" element={<Questions />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/admin/add-user" element={<AddUser />} />
+          <Route path="/admin/add-course" element={<AddCourse />} />
+          <Route path="/admin/add-question" element={<AddQuestion />} />
+          <Route path="/admin/enroll-user" element={<EnrollUser />} />
+          <Route path="/admin/edit-user/:userId" element={<EditUser />} />
+        </Routes>
+      </div>
     </Router>
-  </AuthProvider>
-);
-
-const Home = () => <div>Welcome to Traffic School</div>;
-
-const ProtectedRoute = ({ children }) => {
-  const { auth } = useContext(AuthContext);
-  if (!auth) {
-    return <Navigate to="/login" />;
-  }
-  if (auth.role === "admin" && window.location.pathname !== "/admin") {
-    return <Navigate to="/admin" />;
-  }
-  if (auth.role !== "admin" && window.location.pathname === "/admin") {
-    return <Navigate to="/profile" />;
-  }
-  return children;
-};
+  );
+}
 
 export default App;
