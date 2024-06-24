@@ -25,7 +25,20 @@ const getEnrolledCourses = async (req, res) => {
   }
 };
 
+// Create a new course (admin only)
+const createCourse = async (req, res) => {
+  try {
+    const { title, description } = req.body;
+    const course = new Course({ title, description });
+    const createdCourse = await course.save();
+    res.status(201).json(createdCourse);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error", error: error.message });
+  }
+};
+
 module.exports = {
   getAllCourses,
   getEnrolledCourses,
+  createCourse,
 };

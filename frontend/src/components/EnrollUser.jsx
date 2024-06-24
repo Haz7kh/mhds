@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "../styles/EnrollUser.css";
 
 const EnrollUser = () => {
   const [users, setUsers] = useState([]);
@@ -59,13 +60,14 @@ const EnrollUser = () => {
   };
 
   return (
-    <div>
-      <h2>Enroll User in Course</h2>
-      <form onSubmit={handleEnrollUser}>
+    <div className="enroll-user-container">
+      <h2 className="enroll-user-header">Enroll User in Course</h2>
+      <form className="enroll-user-form" onSubmit={handleEnrollUser}>
         <select
           value={selectedUser}
           onChange={(e) => setSelectedUser(e.target.value)}
           required
+          className="enroll-user-select"
         >
           <option value="">Select User</option>
           {users.map((user) => (
@@ -78,6 +80,7 @@ const EnrollUser = () => {
           value={selectedCourse}
           onChange={(e) => setSelectedCourse(e.target.value)}
           required
+          className="enroll-user-select"
         >
           <option value="">Select Course</option>
           {courses.map((course) => (
@@ -86,7 +89,9 @@ const EnrollUser = () => {
             </option>
           ))}
         </select>
-        <button type="submit">Enroll User</button>
+        <button type="submit" className="enroll-user-button">
+          Enroll User
+        </button>
       </form>
     </div>
   );

@@ -10,7 +10,7 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const courseRoutes = require("./routes/courseRoutes");
 const questionRoutes = require("./routes/questionRoutes");
-const enrollmentRoutes = require("./routes/enrollmentRoutes");
+
 const uploadRoutes = require("./routes/uploadRoutes");
 
 connectDB();
@@ -33,7 +33,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/courses", courseRoutes);
 app.use("/api/questions", questionRoutes);
-app.use("/api/enrollments", enrollmentRoutes);
 app.use("/api/upload", uploadRoutes); // Use upload routes
 
 const PORT = process.env.PORT || 5002;

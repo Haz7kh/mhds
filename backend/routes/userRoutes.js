@@ -14,7 +14,7 @@ const router = express.Router();
 router
   .route("/")
   .get(protect, admin, getUsers)
-  .post(protect, admin, createUser);
+  .post(protect, admin, createUser); // Correct route for creating user
 router
   .route("/:id")
   .get(protect, admin, getUserById)

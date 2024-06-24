@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import "../styles/Users.css";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -47,14 +48,29 @@ const Users = () => {
   };
 
   return (
-    <div>
-      <h2>Users</h2>
-      <ul>
+    <div className="users-container">
+      <h2 className="users-header">Users</h2>
+      <ul className="users-list">
         {users.map((user) => (
-          <li key={user._id}>
-            {user.name} ({user.email})
-            <button onClick={() => handleEditUser(user._id)}>Edit</button>
-            <button onClick={() => handleDeleteUser(user._id)}>Delete</button>
+          <li key={user._id} className="users-list-item">
+            <div className="user-info">
+              <span className="user-name">{user.name}</span>
+              <span className="user-email">{user.email}</span>
+            </div>
+            <div className="user-actions">
+              <button
+                className="user-button"
+                onClick={() => handleEditUser(user._id)}
+              >
+                Edit
+              </button>
+              <button
+                className="user-button"
+                onClick={() => handleDeleteUser(user._id)}
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "../styles/AddUser.css";
 
 const AddUser = () => {
   const [name, setName] = useState("");
@@ -12,7 +13,7 @@ const AddUser = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:3000/api/auth",
+        "http://localhost:3000/api/users", // Updated endpoint
         { name, email, password, isAdmin },
         {
           headers: {
@@ -27,28 +28,31 @@ const AddUser = () => {
   };
 
   return (
-    <div>
-      <h2>Add User</h2>
-      <form onSubmit={handleAddUser}>
+    <div className="add-user-container">
+      <h2 className="add-user-header">Add User</h2>
+      <form className="add-user-form" onSubmit={handleAddUser}>
         <input
           type="text"
           placeholder="Name"
           value={name}
+          className="add-user-input-field"
           onChange={(e) => setName(e.target.value)}
         />
         <input
           type="email"
           placeholder="Email"
           value={email}
+          className="add-user-input-field"
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
+          className="add-user-input-field"
           onChange={(e) => setPassword(e.target.value)}
         />
-        <label>
+        <label className="add-user-checkbox-label">
           <input
             type="checkbox"
             checked={isAdmin}
@@ -56,7 +60,9 @@ const AddUser = () => {
           />
           Admin
         </label>
-        <button type="submit">Add User</button>
+        <button type="submit" className="add-user-button">
+          Add User
+        </button>
       </form>
     </div>
   );

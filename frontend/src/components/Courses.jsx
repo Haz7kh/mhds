@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "../styles/Courses.css";
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
@@ -24,12 +25,14 @@ const Courses = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Courses</h2>
-      <ul>
+    <div className="courses-container">
+      <h2 className="courses-header">Courses</h2>
+      <ul className="courses-list">
         {courses.map((course) => (
-          <li key={course._id}>
-            <Link to={`/questions/${course._id}`}>{course.title}</Link>
+          <li key={course._id} className="courses-list-item">
+            <Link to={`/questions/${course._id}`} className="courses-link">
+              {course.title}
+            </Link>
           </li>
         ))}
       </ul>

@@ -1,0 +1,37 @@
+/* Courses.css */
+.courses-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.courses-header {
+  text-align: center;
+  color: #333;
+}
+
+.courses-list {
+  list-style: none;
+  padding: 0;
+}
+
+.courses-list-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+}
+
+.courses-link {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.courses-link:hover {
+  color: #0056b3;
+}

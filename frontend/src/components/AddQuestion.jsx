@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import "../styles/AddQuestion.css";
 
 const AddQuestion = () => {
   const [courses, setCourses] = useState([]);
@@ -7,7 +8,6 @@ const AddQuestion = () => {
   const [questionText, setQuestionText] = useState("");
   const [answers, setAnswers] = useState({ a: "", b: "", c: "", d: "" });
   const [correctAnswer, setCorrectAnswer] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
@@ -72,7 +72,6 @@ const AddQuestion = () => {
       setQuestionText("");
       setAnswers({ a: "", b: "", c: "", d: "" });
       setCorrectAnswer("");
-      setImageUrl("");
       setImageFile(null);
     } catch (error) {
       console.error("Failed to add question:", error);
@@ -84,13 +83,14 @@ const AddQuestion = () => {
   };
 
   return (
-    <div>
-      <h2>Add Question</h2>
-      <form onSubmit={handleAddQuestion}>
+    <div className="add-question-container">
+      <h2 className="add-question-header">Add Question</h2>
+      <form className="add-question-form" onSubmit={handleAddQuestion}>
         <select
           value={selectedCourse}
           onChange={(e) => setSelectedCourse(e.target.value)}
           required
+          className="add-question-select"
         >
           <option value="">Select Course</option>
           {courses.map((course) => (
@@ -102,6 +102,7 @@ const AddQuestion = () => {
         <textarea
           placeholder="Question Text"
           value={questionText}
+          className="add-question-textarea"
           onChange={(e) => setQuestionText(e.target.value)}
           required
         />
@@ -110,6 +111,7 @@ const AddQuestion = () => {
           name="a"
           placeholder="Answer A"
           value={answers.a}
+          className="add-question-input-field"
           onChange={handleAnswerChange}
           required
         />
@@ -118,6 +120,7 @@ const AddQuestion = () => {
           name="b"
           placeholder="Answer B"
           value={answers.b}
+          className="add-question-input-field"
           onChange={handleAnswerChange}
           required
         />
@@ -126,6 +129,7 @@ const AddQuestion = () => {
           name="c"
           placeholder="Answer C"
           value={answers.c}
+          className="add-question-input-field"
           onChange={handleAnswerChange}
           required
         />
@@ -134,6 +138,7 @@ const AddQuestion = () => {
           name="d"
           placeholder="Answer D"
           value={answers.d}
+          className="add-question-input-field"
           onChange={handleAnswerChange}
           required
         />
@@ -141,11 +146,18 @@ const AddQuestion = () => {
           type="text"
           placeholder="Correct Answer"
           value={correctAnswer}
+          className="add-question-input-field"
           onChange={(e) => setCorrectAnswer(e.target.value)}
           required
         />
-        <input type="file" onChange={(e) => setImageFile(e.target.files[0])} />
-        <button type="submit">Add Question</button>
+        <input
+          type="file"
+          className="add-question-input-field"
+          onChange={(e) => setImageFile(e.target.files[0])}
+        />
+        <button type="submit" className="add-question-button">
+          Add Question
+        </button>
       </form>
     </div>
   );
