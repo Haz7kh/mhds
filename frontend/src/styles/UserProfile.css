@@ -1,0 +1,47 @@
+/* UserProfile.css */
+.user-profile-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.user-profile-header {
+  text-align: center;
+  color: #333;
+}
+
+.user-profile-info {
+  margin-bottom: 15px;
+  color: #555;
+  font-size: 16px;
+}
+
+.user-profile-courses-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.user-profile-courses-list {
+  list-style: none;
+  padding: 0;
+}
+
+.user-profile-courses-list-item {
+  margin-bottom: 10px;
+}
+
+.user-profile-course-link {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.user-profile-course-link:hover {
+  color: #0056b3;
+}

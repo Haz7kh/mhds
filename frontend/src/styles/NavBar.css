@@ -1,53 +1,76 @@
+/* NavBar.css */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #333;
-  color: white;
+  background-color: #007bff;
+  color: #fff;
+  font-family: Arial, sans-serif;
 }
 
 .navbar-logo img {
-  height: 40px;
+  max-height: 40px;
 }
 
 .navbar-menu {
   list-style: none;
   display: flex;
-  justify-content: center;
-  flex: 1;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar-menu li {
-  margin: 0 15px;
+  display: inline;
 }
 
-.navbar-menu a {
-  color: white;
+.navbar-menu li a {
+  color: #fff;
   text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar-menu li a:hover {
+  color: #cce7ff;
 }
 
 .navbar-right {
   display: flex;
   align-items: center;
+  gap: 15px;
 }
 
 .navbar-right span {
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
-.profile-icon {
-  margin-right: 15px;
+.profile-icon a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #fff;
 }
 
-.navbar button {
-  background-color: #555;
-  color: white;
-  border: none;
+.profile-icon a:hover {
+  color: #cce7ff;
+}
+
+button {
   padding: 5px 10px;
+  background-color: #ff4b5c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-.navbar button:hover {
-  background-color: #777;
+button:hover {
+  background-color: #ff1c2d;
+}
+
+button:focus {
+  outline: none;
 }

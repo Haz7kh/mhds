@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "../styles/UserProfile.css";
 
 const UserProfile = () => {
   const [profile, setProfile] = useState({});
@@ -27,16 +28,21 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <div>
-      <h2>User Profile</h2>
-      <p>Name: {profile.name}</p>
-      <p>Email: {profile.email}</p>
-      <p>Courses:</p>
-      <ul>
+    <div className="user-profile-container">
+      <h2 className="user-profile-header">User Profile</h2>
+      <p className="user-profile-info">Name: {profile.name}</p>
+      <p className="user-profile-info">Email: {profile.email}</p>
+      <p className="user-profile-courses-header">Courses:</p>
+      <ul className="user-profile-courses-list">
         {profile.courses &&
           profile.courses.map((course) => (
-            <li key={course._id}>
-              <Link to={`/questions/${course._id}`}>{course.title}</Link>
+            <li key={course._id} className="user-profile-courses-list-item">
+              <Link
+                to={`/questions/${course._id}`}
+                className="user-profile-course-link"
+              >
+                {course.title}
+              </Link>
             </li>
           ))}
       </ul>

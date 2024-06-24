@@ -43,7 +43,12 @@ const NavBar = () => {
             <button onClick={handleLogout}>Logout</button>
           </>
         ) : (
-          <Link to="/login">Login</Link>
+          <Link
+            to="/login"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            Login
+          </Link>
         )}
       </div>
     </nav>
